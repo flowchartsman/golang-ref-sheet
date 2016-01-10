@@ -8,7 +8,7 @@
 % The MIT License (see included LICENSE file)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass{minimal}
+\documentclass{article}
 \usepackage[legalpaper, portrait, margin=0.25in]{geometry}
 
 \usepackage{import}
@@ -21,11 +21,12 @@
 
 
 \definecolor{boxgrey}{rgb}{0.5, 0.5, 0.5}
-\newmdenv[innerlinewidth=0.5pt, roundcorner=4pt, linecolor=boxgrey, innerleftmargin=6pt,
-innerrightmargin=6pt, innertopmargin=1pt, innerbottommargin=1pt]{greybox}
+\newmdenv[backgroundcolor=sbase3,innerlinewidth=0.5pt, roundcorner=4pt, linecolor=boxgrey, innerleftmargin=0pt,
+innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt]{greybox}
 
 \begin{document}
-Title
+\noindent{{\LARGE{Golang Quick Reference}}\hfill\includegraphics[height=1cm]{./figures/gopher.eps}
+\tiny
 \begin{multicols}{3}
 
 \begin{greybox}
@@ -38,6 +39,19 @@ func main() {
 }
 \end{lstlisting}
 \end{greybox}
+
+\begin{greybox}
+\begin{lstlisting}[language=go]
+package anothermain
+import (
+	"fmt"
+)
+func main() {
+	fmt.Println("Gopher, save me")
+}
+\end{lstlisting}
+\end{greybox}
+
 \columnbreak
 Another Column
 \columnbreak
