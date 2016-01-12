@@ -8,28 +8,38 @@
 % The MIT License (see included LICENSE file)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass{article}
-\usepackage[legalpaper, portrait, margin=0.25in]{geometry}
 
+% Basic document setup
+\documentclass{article}
+\usepackage[portrait, margin=0.25in, marginparsep=0pt]{geometry}
+\setlength{\parindent}{0pt}
+% Local imports (and anything they include) first
 \usepackage{import}
 \subimport{theme/}{solarized-light}
 \subimport{syntax/}{go}
-
+% Package imports
 \usepackage{multicol}
-\usepackage{framed}
 \usepackage[framemethod=tikz]{mdframed}
-
-
-\definecolor{boxgrey}{rgb}{0.5, 0.5, 0.5}
-\newmdenv[backgroundcolor=sbase3,innerlinewidth=0.5pt, roundcorner=4pt, linecolor=boxgrey, innerleftmargin=0pt,
-innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt]{greybox}
-
-\begin{document}
-\noindent{{\LARGE{Golang Quick Reference}}\hfill\includegraphics[height=1cm]{./figures/gopher.eps}
-\tiny
-\begin{multicols}{3}
-
-\begin{greybox}
+\usepackage[export]{adjustbox} %To  justify images
+% Frame/box definitions
+\newmdenv[backgroundcolor=sbase1,linewidth=0pt, roundcorner=3pt, innerleftmargin=3pt, innerrightmargin=3pt, innertopmargin=3pt, innerbottommargin=3pt, leftmargin=0pt, rightmargin=0pt, skipabove=0pt, skipbelow=0pt]{pagebox}
+\definecolor{codeboxbordercolor}{rgb}{0, 0, 0}
+\newmdenv[backgroundcolor=sbase3,linewidth=0pt, roundcorner=3pt, linecolor=codeboxbordercolor, innerleftmargin=3pt, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt]{codebox}
+\begin{document}\noindent
+\begin{minipage}{.5\textwidth}
+\Large{Golang Quick Reference}\tiny{version $\alpha$}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\begin{adjustbox}{right}
+\includegraphics[width=0.5cm]{./figures/gopher.eps}%
+\end{adjustbox}%
+\end{minipage}%
+\tiny%
+\begin{pagebox}
+\setlength\multicolsep{0pt}%
+\setlength\columnsep{5pt}%
+\begin{multicols}{4}
+\begin{codebox}
 \begin{lstlisting}[language=go]
 package main
 import (
@@ -38,9 +48,9 @@ import (
 func main() {
 }
 \end{lstlisting}
-\end{greybox}
+\end{codebox}
 
-\begin{greybox}
+\begin{codebox}
 \begin{lstlisting}[language=go]
 package anothermain
 import (
@@ -50,12 +60,31 @@ func main() {
 	fmt.Println("Gopher, save me")
 }
 \end{lstlisting}
-\end{greybox}
-
+\end{codebox}
 \columnbreak
-Another Column
+\begin{codebox}
+\begin{lstlisting}[language=go]
+package anothermain
+import (
+	"fmt"
+)
+func main() {
+	fmt.Println("Gopher, save me")
+}
+\end{lstlisting}
+\end{codebox}
 \columnbreak
-Yet a third column, zomg
-
+\begin{codebox}
+\begin{lstlisting}[language=go]
+package anothermain
+import (
+	"fmt"
+)
+func main() {
+	fmt.Println("Gopher, save me")
+}
+\end{lstlisting}
+\end{codebox}
 \end{multicols}
+\end{pagebox}
 \end{document}
