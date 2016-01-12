@@ -22,9 +22,8 @@
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage[export]{adjustbox} %To  justify images
 % Frame/box definitions
-\newmdenv[backgroundcolor=sbase1,linewidth=0pt, roundcorner=3pt, innerleftmargin=3pt, innerrightmargin=3pt, innertopmargin=3pt, innerbottommargin=3pt, leftmargin=0pt, rightmargin=0pt, skipabove=0pt, skipbelow=0pt]{pagebox}
-\definecolor{codeboxbordercolor}{rgb}{0, 0, 0}
-\newmdenv[backgroundcolor=sbase3,linewidth=0pt, roundcorner=3pt, linecolor=codeboxbordercolor, innerleftmargin=3pt, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt]{codebox}
+\newmdenv[backgroundcolor=sbase01,linewidth=0pt, roundcorner=3pt, innerleftmargin=3pt, innerrightmargin=3pt, innertopmargin=3pt, innerbottommargin=3pt, leftmargin=0pt, rightmargin=0pt, skipabove=0pt, skipbelow=0pt]{pagebox}
+\newmdenv[backgroundcolor=sbase3,linewidth=0pt, roundcorner=3pt, linecolor=sbase02, innerleftmargin=3pt, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, skipbelow=3pt, frametitleaboveskip=3pt, frametitlebelowskip=3pt, frametitlerule=true, frametitlerulewidth=0.5pt, frametitlebackgroundcolor=sblue, subtitlebackgroundcolor=sblue, frametitlefont=\tiny\tt, subtitlefont=\tiny\tt, subtitleaboveline=true, subtitlebelowline=true, subtitleabovelinewidth=0.5pt, subtitlebelowlinewidth=0.5pt]{codebox}
 \begin{document}\noindent
 \begin{minipage}{.5\textwidth}
 \Large{Golang Quick Reference}\tiny{version $\alpha$}
@@ -33,13 +32,14 @@
 \begin{adjustbox}{right}
 \includegraphics[width=0.5cm]{./figures/gopher.eps}%
 \end{adjustbox}%
-\end{minipage}%
-\tiny%
+\end{minipage} \\
+\begin{minipage}{\textwidth}
+\tt\tiny%
 \begin{pagebox}
 \setlength\multicolsep{0pt}%
-\setlength\columnsep{5pt}%
+\setlength\columnsep{3pt}%
 \begin{multicols}{4}
-\begin{codebox}
+\begin{codebox}[frametitle={Intro}]
 \begin{lstlisting}[language=go]
 package main
 import (
@@ -49,7 +49,20 @@ func main() {
 }
 \end{lstlisting}
 \end{codebox}
-
+\begin{codebox}[frametitle={More}]
+\begin{lstlisting}[language=go]
+func foo(bar int, baz int) int {
+    return bar + baz
+}
+\end{lstlisting}
+\end{codebox}
+\begin{codebox}[frametitle={More2}]
+\begin{lstlisting}[language=go]
+func foo(bar int, baz int) int {
+    return bar + baz
+}
+\end{lstlisting}
+\end{codebox}
 \begin{codebox}
 \begin{lstlisting}[language=go]
 package anothermain
@@ -61,6 +74,7 @@ func main() {
 }
 \end{lstlisting}
 \end{codebox}
+\vfill
 \columnbreak
 \begin{codebox}
 \begin{lstlisting}[language=go]
@@ -87,4 +101,5 @@ func main() {
 \end{codebox}
 \end{multicols}
 \end{pagebox}
+\end{minipage}
 \end{document}
