@@ -1,5 +1,10 @@
 #!/bin/bash
 OPTIND=1
+
+generate_preview () {
+    convert -density 200 -background white -alpha remove golang-ref-sheet.pdf[0] -crop 500x300+$1+$2 \( +clone -background black -shadow 80x3+4+4 \) +swap -background white -layers merge +repage github/$3
+}
+
 pdflatex -halt-on-error golang-ref-sheet.tex
 if [ $? -ne 0 ]; then
     echo "Build failed. Check output of golang-ref-sheet.log" >&2
@@ -26,7 +31,7 @@ done
 
 if [ ! -z "$GEN_PNG" ]; then
     if type -P convert 2>/dev/null; then
-        convert -density 200 -background white -alpha remove golang-ref-sheet.pdf[0] -crop 500x300+50+50 \( +clone -background black -shadow 80x3+4+4 \) +swap -background white -layers merge +repage github/preview1.png
+        generate_preview 50 50 preview1.png
     else
         echo "Please install imagemagick to generate previews" >&2
     fi
