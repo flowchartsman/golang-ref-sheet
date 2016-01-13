@@ -26,7 +26,7 @@ done
 
 if [ ! -z "$GEN_PNG" ]; then
     if type -P convert 2>/dev/null; then
-        convert -density 200 -background white -alpha remove -crop 500x300+50+50 golang-ref-sheet.pdf[0] github/preview1.png
+        convert -density 200 -background white -alpha remove golang-ref-sheet.pdf[0] -crop 500x300+50+50 \( +clone -background black -shadow 80x3+4+4 \) +swap -background white -layers merge +repage github/preview1.png
     else
         echo "Please install imagemagick to generate previews" >&2
     fi
