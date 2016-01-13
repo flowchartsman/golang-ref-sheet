@@ -1,18 +1,18 @@
 #!/bin/bash
 OPTIND=1
 
+BUILD_DIR=${BUILD_DIR-${TMPDIR}}
+
 generate_preview () {
     convert -density 200 -background white -alpha remove golang-ref-sheet.pdf[0] -crop 500x300+$1+$2 \( +clone -background black -shadow 80x3+4+4 \) +swap -background white -layers merge +repage github/$3
 }
 
-pdflatex -halt-on-error golang-ref-sheet.tex
+lualatex --shell-escape --output-directory=$BUILD_DIR -halt-on-error golang-ref-sheet.tex
 if [ $? -ne 0 ]; then
-    echo "Build failed. Check output of golang-ref-sheet.log" >&2
+    echo "Build failed. Check output of $BUILD_DIR/golang-ref-sheet.log" >&2
     exit 1
 fi
-rm -f golang-ref-sheet.aux
-rm -f golang-ref-sheet.log
-rm -f figures/*converted-to.pdf
+cp $BUILD_DIR/golang-ref-sheet.pdf .
 GEN_PNG=
 while getopts ":gp:" opt; do
     case "$opt" in
