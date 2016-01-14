@@ -15,15 +15,18 @@
 \setlength{\parindent}{0pt}
 % Local imports (and anything they include) first
 \usepackage{import}
-\subimport{theme/}{solarized-light}
-\subimport{syntax/}{go}
+% To allow us to use solarized colors elsewhere in the document
+\subimport{theme/}{solarized}
 % Package imports
+\usepackage[outputdir=\directlua{tex.sprint(os.getenv('BUILD_DIR'))}]{minted}
 \usepackage{multicol}
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage[export]{adjustbox} %To  justify images
 % Frame/box definitions
 \newmdenv[backgroundcolor=sbase01,linewidth=0pt, roundcorner=3pt, innerleftmargin=3pt, innerrightmargin=3pt, innertopmargin=3pt, innerbottommargin=3pt, leftmargin=0pt, rightmargin=0pt, skipabove=0pt, skipbelow=0pt]{pagebox}
-\newmdenv[backgroundcolor=sbase3,linewidth=0pt, roundcorner=3pt, linecolor=sbase02, innerleftmargin=3pt, innerrightmargin=0pt, innertopmargin=0pt, innerbottommargin=0pt, skipbelow=3pt, frametitleaboveskip=3pt, frametitlebelowskip=3pt, frametitlerule=true, frametitlerulewidth=0.5pt, frametitlebackgroundcolor=sblue, subtitlebackgroundcolor=sblue, frametitlefont=\tiny\tt, subtitlefont=\tiny\tt, subtitleaboveline=true, subtitlebelowline=true, subtitleabovelinewidth=0.5pt, subtitlebelowlinewidth=0.5pt]{codebox}
+\newmdenv[backgroundcolor=sbase3,linewidth=0pt, roundcorner=3pt, linecolor=sbase02, innerleftmargin=3pt, innerrightmargin=0pt, innertopmargin=3pt, innerbottommargin=3pt, skipbelow=3pt, frametitleaboveskip=3pt, frametitlebelowskip=3pt, frametitlerule=true, frametitlerulewidth=0.5pt, frametitlebackgroundcolor=sblue, subtitlebackgroundcolor=sblue, frametitlefont=\tiny\tt, subtitlefont=\tiny\tt, subtitleaboveline=true, subtitlebelowline=true, subtitleabovelinewidth=0.5pt, subtitlebelowlinewidth=0.5pt]{codebox}
+\usemintedstyle{solarizedlight}
+\newminted{go}{autogobble}
 \begin{document}\noindent
 \begin{minipage}{.5\textwidth}
 \Large{Golang Quick Reference}\tiny{version $\alpha$}
@@ -40,31 +43,37 @@
 \setlength\columnsep{3pt}%
 \begin{multicols}{4}
 \begin{codebox}[frametitle={Intro}]
-\begin{lstlisting}[language=go]
+\begin{gocode}
 package main
 import (
-	"fmt"
+    "fmt"
 )
 func main() {
+    a := 1 + 2
+    b := false
+    "foo goto bar"
+    5-3
+    "5-3"
+    5*3
 }
-\end{lstlisting}
+\end{gocode}
 \end{codebox}
 \begin{codebox}[frametitle={More}]
-\begin{lstlisting}[language=go]
+\begin{gocode}
 func foo(bar int, baz int) int {
     return bar + baz
 }
-\end{lstlisting}
+\end{gocode}
 \end{codebox}
 \begin{codebox}[frametitle={More2}]
-\begin{lstlisting}[language=go]
+\begin{gocode}
 func foo(bar int, baz int) int {
     return bar + baz
 }
-\end{lstlisting}
+\end{gocode}
 \end{codebox}
 \begin{codebox}
-\begin{lstlisting}[language=go]
+\begin{gocode}
 package anothermain
 import (
 	"fmt"
@@ -72,12 +81,12 @@ import (
 func main() {
 	fmt.Println("Gopher, save me")
 }
-\end{lstlisting}
+\end{gocode}
 \end{codebox}
 \vfill
 \columnbreak
 \begin{codebox}
-\begin{lstlisting}[language=go]
+\begin{gocode}
 package anothermain
 import (
 	"fmt"
@@ -85,11 +94,11 @@ import (
 func main() {
 	fmt.Println("Gopher, save me")
 }
-\end{lstlisting}
+\end{gocode}
 \end{codebox}
 \columnbreak
 \begin{codebox}
-\begin{lstlisting}[language=go]
+\begin{gocode}
 package anothermain
 import (
 	"fmt"
@@ -97,7 +106,7 @@ import (
 func main() {
 	fmt.Println("Gopher, save me")
 }
-\end{lstlisting}
+\end{gocode}
 \end{codebox}
 \end{multicols}
 \end{pagebox}
