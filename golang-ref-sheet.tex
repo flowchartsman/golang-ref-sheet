@@ -10,7 +10,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Basic document setup
-\documentclass{article}
+\documentclass[10pt]{article}
 \usepackage[portrait, margin=0.25in]{geometry}
 \setlength{\parindent}{0pt}
 % Local imports (and anything they include) first
@@ -20,12 +20,13 @@
 
 % Package imports
 \usepackage[outputdir=\directlua{tex.sprint(os.getenv('BUILD_DIR'))}]{minted}
-\usepackage[framemethod=tikz]{mdframed}
+\usepackage{tcolorbox}
 \usepackage{pdfrender}
 
 % Frame/box definitions
-\pagecolor{sbase01}
-\newmdenv[backgroundcolor=sbase3,linewidth=0pt, roundcorner=3pt, linecolor=sbase02, skipabove=0pt, skipbelow=3pt,innerleftmargin=3pt, innerrightmargin=0pt, innertopmargin=3pt, innerbottommargin=3pt, frametitleaboveskip=3pt, frametitlebelowskip=3pt, frametitlerule=true, frametitlerulewidth=0.5pt, frametitlebackgroundcolor=sblue, subtitlebackgroundcolor=sblue, frametitlefont=\tiny\tt, subtitlefont=\tiny\tt, subtitleaboveline=true, subtitlebelowline=true, subtitleabovelinewidth=0.5pt, subtitlebelowlinewidth=0.5pt]{codebox}
+%\pagecolor{sbase01}
+%TODO: Look at sidebyside, overlay, tcbline, segmentation style
+\newtcolorbox{codebox}[1][]{fontupper=\tiny\tt, coltext=black, colback=sbase3, fonttitle=\tiny\tt, coltitle=white, colbacktitle=sblue, arc=3pt, boxrule=0pt, titlerule=0.5pt, box align=top, before skip=3pt, after skip=0pt, left skip=0pt, right skip=3pt, top=3pt, toptitle=3pt, bottomtitle=3pt, boxsep=0pt, left=3pt, top=3pt, halign=left, title=#1}
 
 % Code formatting alias/options
 \usemintedstyle{solarizedlight}
@@ -61,7 +62,25 @@
 \end{minipage}
 \tt\tiny%
 \begin{minipage}[t]{.25\textwidth}
-    \begin{codebox}[frametitle={Intro}]
+	\begin{codebox}[Program Structure]
+		\begin{gocode}
+            package main
+
+            import (
+                "pkg"
+                "pkg2"
+            )
+            //Can also import per-line
+            import "fmt"
+
+            func main() {
+                // Code
+            }
+		\end{gocode}
+        \tcbsubtitle{stuff}
+        blah
+	\end{codebox}
+    \begin{codebox}[Intro]
         \begin{gocode}
             package main
             import (
@@ -77,7 +96,7 @@
             }
         \end{gocode}
     \end{codebox}
-    \begin{codebox}[frametitle={More}]
+    \begin{codebox}[More]
         %\inputminted[firstline=2,lastline=10]{go}{./go/quickref_src.go}
         \begin{gocode}
             func foo(bar int, baz int) int {
@@ -85,7 +104,7 @@
             }
         \end{gocode}
     \end{codebox}
-    \begin{codebox}[frametitle={More2}]
+    \begin{codebox}[more2]
         \begin{gocode}
             func foo(bar int, baz int) int {
                 return bar + baz
@@ -105,7 +124,6 @@
     \end{codebox}
 \end{minipage}%
 \begin{minipage}[t]{.25\textwidth}
-    \mdfsetup{leftmargin=3pt}%
     \begin{codebox}
         \begin{gocode}
             package anothermain
@@ -119,7 +137,6 @@
     \end{codebox}
 \end{minipage}%
 \begin{minipage}[t]{.25\textwidth}
-    \mdfsetup{leftmargin=3pt}%
     \begin{codebox}
         \begin{gocode}
             package anothermain
@@ -133,7 +150,7 @@
     \end{codebox}
 \end{minipage}%
 \begin{minipage}[t]{.25\textwidth}
-    \mdfsetup{leftmargin=3pt}%
+    \tcbset{right skip=0pt}%
     \begin{codebox}
         \begin{gocode}
             package anothermain
