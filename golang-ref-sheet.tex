@@ -26,7 +26,7 @@
 % Frame/box definitions
 %\pagecolor{sbase01}
 %TODO: Look at sidebyside, overlay, tcbline, segmentation style
-\newtcolorbox{codebox}[1][]{fontupper=\tiny\tt, coltext=black, colback=sbase3, fonttitle=\tiny\tt, coltitle=white, colbacktitle=sblue, arc=3pt, boxrule=0pt, titlerule=0.5pt, box align=top, before skip=3pt, after skip=0pt, left skip=0pt, right skip=3pt, top=3pt, toptitle=3pt, bottomtitle=3pt, boxsep=0pt, left=3pt, top=3pt, halign=left, title=#1}
+\newtcolorbox{codebox}[1][]{fontupper=\scriptsize\tt, coltext=black, colback=sbase3, fonttitle=\scriptsize\tt, coltitle=white, colbacktitle=sblue, arc=3pt, boxrule=0pt, titlerule=0.5pt, box align=top, before skip=3pt, after skip=0pt, left skip=0pt, right skip=3pt, top=3pt, toptitle=3pt, bottomtitle=3pt, boxsep=0pt, left=3pt, top=3pt, halign=left, title=#1}
 
 % Code formatting alias/options
 \usemintedstyle{solarizedlight}
@@ -60,7 +60,7 @@
     \textcolor{sblue}{\CheapShadow{\Large{Go Quick Reference}\tiny{version $\alpha$}}}\hfill
     \includegraphics[width=0.5cm]{./figures/gopher.eps}
 \end{minipage}
-\tt\tiny%
+\tt\scriptsize%
 \begin{minipage}[t]{.25\textwidth}
 	\begin{codebox}[Program Structure]
 		\begin{gocode}
