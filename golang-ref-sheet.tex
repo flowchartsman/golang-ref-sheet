@@ -26,8 +26,8 @@
 
 % Package imports
 \usepackage{booktabs}
-\usepackage{multirow, rotating}
-\usepackage{pst-node, auto-pst-pdf}
+\usepackage{tikz}
+    \usetikzlibrary{tikzmark, calc, positioning, fit, shapes.misc}
 \usepackage[outputdir=\directlua{tex.sprint(os.getenv('BUILD_DIR'))}]{minted}
 \usepackage{tcolorbox}
 \usepackage{pdfrender} %shadowed text
@@ -119,20 +119,18 @@
     \end{codebox}
     \begin{codebox}[Operators]
         \setlength{\tabcolsep}{2pt}
-        \begin{postscript}
 		\begin{tabular}{@{}l|llllllll@{}}
-            Unary & +  & -  & ! & \textasciicircum & * & \& & <- &\pnode(0,5pt){B}\\
+            Unary & +  & -  & ! & \textasciicircum & * & \& & <- &\tikzmark{a}\\
 			Multiplication & * & / & \% & << & >> & \& & \&\textasciicircum&\\
 			Addition & + & - & | & \textasciicircum &&&&\\
 			Comparison & == & != & < & <= & > & >= &&\\
 			Logical & \&\& &&&&&&&\\
-					& || &&&&&&&\pnode(0,-2pt){E}
-		\bottomrule
+            & || &&&&&&&\tikzmark{b}
 		\end{tabular}
-		\psset{fillcolor=sbase3, arrowinset=0.12, arrows=->, nrot=:U, shortput=nab, labelsep=2pt}
-		\ncline[linecolor=sblue]{B}{E}^{precedence}
-		\end{postscript}
-            \textasciicircum x = bitwise compliment of x
+        \begin{tikzpicture}[remember picture, overlay]
+            \draw [->,thick,draw=sblue] ($(pic cs:a) + (0,5pt)$) -- ($(pic cs:b) + (0,-2pt)$) node [midway, sloped, above]{precedence};
+        \end{tikzpicture}
+        \textasciicircum x = bitwise compliment of x
     \end{codebox}
 \end{minipage}%
 \begin{minipage}[t]{.25\textwidth}
