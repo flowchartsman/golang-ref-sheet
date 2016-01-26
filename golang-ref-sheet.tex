@@ -26,7 +26,8 @@
 
 % Package imports
 \usepackage{booktabs}
-\usepackage{multirow}
+\usepackage{multirow, rotating}
+\usepackage{pst-node, auto-pst-pdf}
 \usepackage[outputdir=\directlua{tex.sprint(os.getenv('BUILD_DIR'))}]{minted}
 \usepackage{tcolorbox}
 \usepackage{pdfrender}
@@ -73,24 +74,120 @@
 }
 
 \begin{document}
-\begin{minipage}{\textwidth}
+\begin{minipage}[t][][b]{\textwidth}
     \fontfamily{pag}%
     \fontseries{b}%
-    \textcolor{sblue}{\CheapShadow{\Large{Go Quick Reference}\tiny{version $\alpha$}}}\hfill
-    \includegraphics[width=0.5cm]{./figures/gopher.eps}
+    \textcolor{sblue}{\CheapShadow{\large{Go Quick Reference}\tiny{version $\alpha$}}}\hfill
+    \includegraphics[height=12pt]{./figures/gopher.eps}
 \end{minipage}
 \begin{minipage}[t]{.25\textwidth}
-    \begin{codebox}[Operators]
-        \setlength{\tabcolsep}{2pt}%
-        \begin{tabular}{@{}l|llllllll@{}}
-            Unary & +  & -  & \textasciicircum &&&&&\multirow{6}*{\rotatebox[origin=c]{270}{$\underrightarrow{precedence}$}}\\
-            Multiplication & * & / & \% & << & >> & \& & \&\textasciicircum&\\
-            Addition & + & - & | & \textasciicircum &&&&\\
-            Comparison & == & != & < & <= & > & >= &&\\
-            Logical & \&\& &&&&&&&\\
-                    & ||   &&&&&&&
-        \end{tabular}%
+    \begin{codebox}[Declaration]
+        \begin{gocode}
+            var num int     // declare an integer
+            var num int = 1 // declare & initialize
+            var num = 1     // type inferred
+            num := 1        // short declaration
+
+            var num, foo int = 1, 2 // multiple
+
+            // Unicode's cool
+            var 名 = "アラスカ"
+
+            // constants at top level ONLY
+            const name = "golang"
+
+            // group-declaration
+            var (
+                foo int
+                bar int = 1
+                baz = 2
+            )
+            const (
+                fooConst = iota // 0
+                barConst        // 1
+                bazConst = "Baz"
+            )
+
+            // camelCase when multi-word
+            myFavoriteRodent = "gopher"
+
+            // identifiers with uppercase first
+            // letters are exported
+            const PackageName = "my package"
+            var BadIdea = "mutate from anywhere!"
+
+            // TYPES
+            type intList []int
+
+            type myType struct {
+                embeddedType
+                protectedMember int
+                PublicMember    string
+            }
+
+            // FUNCTIONS
+            func returnNumberOne() int {
+                return 1
+            }
+
+            // multiple return values
+            func returnTwoInts() (int,int) {
+                return 2,3
+            }
+
+            // methods have receievers
+            func (t *myType) getProt() int {
+                return t.protectedMember
+            }
+
+            // INTERFACES
+            type protGetter interface {
+                // function signatures only
+                getProt() int
+            }
+        \end{gocode}
+        \tcbsubtitle{Short Declaration}
+        \begin{gocode}
+            x := aFunction() // type inferred
+
+            // can "re-declare" with at least one
+            // new variable
+            var y int
+            x, z := 1, 2 // ok
+            x, y := 3, 4 // ERROR
+
+            // creates block-local variables
+            for i:= 0 ; i < 10; i++ {
+                fmt.Println(i)
+            }
+            fmt.Println(i) // ERROR
+
+            // beware of shadowing
+        \end{gocode}
     \end{codebox}
+\end{minipage}%
+\begin{minipage}[t]{.25\textwidth}
+    \begin{codebox}[Operators]
+        \setlength{\tabcolsep}{2pt}
+        \begin{postscript}
+		\begin{tabular}{@{}l|llllllll@{}}
+            Unary & +  & -  & ! & \textasciicircum & * & \& & <- &\pnode(0,5pt){B}\\
+			Multiplication & * & / & \% & << & >> & \& & \&\textasciicircum&\\
+			Addition & + & - & | & \textasciicircum &&&&\\
+			Comparison & == & != & < & <= & > & >= &&\\
+			Logical & \&\& &&&&&&&\\
+					& || &&&&&&&\pnode(0,-2pt){E}
+		\bottomrule
+		\end{tabular}
+		\psset{fillcolor=sbase3, arrowinset=0.12, arrows=->, nrot=:U, shortput=nab, labelsep=2pt}
+		\ncline[linecolor=sblue]{B}{E}^{precedence}
+		\end{postscript}
+            \textasciicircum x = bitwise compliment of x
+        \tcbsubtitle{Builtin types}
+		MOAR TABLES
+    \end{codebox}
+\end{minipage}%
+\begin{minipage}[t]{.25\textwidth}
 	\begin{codebox}[Structure - Exectutable]
         \begin{gocode}
             package main
@@ -117,63 +214,6 @@
             func CallMeFromOutside
         \end{gocode}
 	\end{codebox}
-    \begin{codebox}[Intro]
-        \begin{gocode}
-            package main
-            import (
-            "fmt"
-            )
-            func main() {
-                a := 1 + 2
-                b := false
-                "foo goto bar"
-                5-3
-                "5-3"
-                5*3
-            }
-        \end{gocode}
-    \end{codebox}
-    \begin{codebox}[More]
-        %\inputminted[firstline=2,lastline=10]{go}{./go/quickref_src.go}
-        \begin{gocode}
-            func foo(bar int, baz int) int {
-                return bar + baz
-            }
-        \end{gocode}
-    \end{codebox}
-    \begin{codebox}[more2]
-        \begin{gocode}
-            func foo(bar int, baz int) int {
-                return bar + baz
-            }
-        \end{gocode}
-    \end{codebox}
-    \begin{codebox}
-        \begin{gocode}
-            package anothermain
-            import (
-            "fmt"
-            )
-            func main() {
-                fmt.Println("Gopher, save me")
-            }
-        \end{gocode}
-    \end{codebox}
-\end{minipage}%
-\begin{minipage}[t]{.25\textwidth}
-    \begin{codebox}
-        \begin{gocode}
-            package anothermain
-            import (
-            "fmt"
-            )
-            func main() {
-                fmt.Println("Gopher, save me")
-            }
-        \end{gocode}
-    \end{codebox}
-\end{minipage}%
-\begin{minipage}[t]{.25\textwidth}
     \begin{codebox}
         \begin{gocode}
             package anothermain
@@ -199,5 +239,5 @@
             }
         \end{gocode}
     \end{codebox}
-\end{minipage}%
+\end{minipage}
 \end{document}
