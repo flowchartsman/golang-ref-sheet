@@ -20,8 +20,7 @@
 
 % Local imports (and anything they include) first
 \usepackage{import}
-% To allow us to use solarized colors elsewhere in the document
-\subimport{theme/}{solarized}
+\subimport{theme/}{perldoc}
 
 % Now that we have theme colors, we can set the main font
 \setmainfont{Inconsolata}
@@ -46,12 +45,12 @@
 \setlength{\fancyvrbpartopsep}{0pt}
 
 % Frame/box definitions
-%\pagecolor{sbase01}
+%\pagecolor{grPageColor}
 %TODO: Look at sidebyside, overlay, tcbline, segmentation style
-\newtcolorbox{codebox}[1][]{fontupper=\scriptsize\texttt, coltext=black, colback=sbase3, fonttitle=\scriptsize\texttt, coltitle=white, colbacktitle=sblue, arc=3pt, boxrule=0pt, titlerule=0.5pt, box align=top, before skip=0pt, after skip=3pt, left skip=0pt, right skip=3pt, toptitle=3pt, bottomtitle=3pt, subtitle style={after skip=6pt}, boxsep=0pt, left=3pt, top=3pt, halign=left, title=#1}
+\newtcolorbox{codebox}[1][]{fontupper=\scriptsize\texttt, coltext=grText, colback=grBack, fonttitle=\scriptsize\texttt, coltitle=grHeadingText, colbacktitle=grHeadingBack, arc=3pt, boxrule=0pt, titlerule=0.5pt, box align=top, before skip=0pt, after skip=3pt, left skip=0pt, right skip=3pt, toptitle=3pt, bottomtitle=3pt, subtitle style={after skip=6pt}, boxsep=0pt, left=3pt, top=3pt, halign=left, title=#1}
 
 % Code formatting alias/options
-\usemintedstyle{solarizedlight}
+\usemintedstyle{perldoc}
 \newminted{go}{autogobble}
 
 % Custom commands
@@ -80,7 +79,7 @@
 \begin{minipage}[t][][b]{\textwidth}
     \fontfamily{pag}%
     \fontseries{b}%
-    \textcolor{sblue}{\CheapShadow{\large{Go Quick Reference}\tiny{version $\alpha$}}}\hfill
+    \textcolor{grTitle}{\CheapShadow{\large{Go Quick Reference}\tiny{version $\alpha$}}}\hfill
     \includegraphics[height=12pt]{./figures/gopher.eps}
 \end{minipage}
 \begin{minipage}[t]{.25\textwidth}
@@ -132,7 +131,7 @@
             & || &&&&&&&\tikzmark{b}
 		\end{tabular}
         \begin{tikzpicture}[remember picture, overlay]
-            \draw [->,thick,draw=sblue] ($(pic cs:a) + (0,5pt)$) -- ($(pic cs:b) + (0,-2pt)$) node [midway, sloped, above]{precedence};
+            \draw [->,thick,draw=grAnnotate] ($(pic cs:a) + (0,5pt)$) -- ($(pic cs:b) + (0,-2pt)$) node [midway, sloped, above]{precedence};
         \end{tikzpicture}
         \textasciicircum x = bitwise compliment of x
     \end{codebox}
