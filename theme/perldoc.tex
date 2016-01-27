@@ -1,4 +1,11 @@
-\usepackage[x11names, rgb, html]{xcolor}
+% Override the kt styling with scalar/array styling from perldoc.org
+% Remove when/if https://bitbucket.org/birkenfeld/pygments-main/issues/1202/ is fixed
+% Monkey-patching is bad, mmmkay?
+\makeatletter
+\AtBeginDocument{%
+    \def\PYGperldoc@tok@kt{\let\PYGperldoc@bf=\textbf\def\PYGperldoc@tc##1{\textcolor[HTML]{00688B}{##1}}}
+}
+\makeatother
 
 % Perldoc colors
 \definecolor{grBack}{HTML}{EEEEDD}

@@ -18,10 +18,6 @@
 \usepackage{fontspec}
 \usepackage{luatexja-fontspec} %% Japanese text
 
-% Local imports (and anything they include) first
-\usepackage{import}
-\subimport{theme/}{perldoc}
-
 % Now that we have theme colors, we can set the main font
 \setmainfont{Inconsolata}
 \setmonofont{Inconsolata}
@@ -30,10 +26,17 @@
 % Package imports
 \usepackage{tikz}
     \usetikzlibrary{tikzmark, calc, positioning, fit, shapes.misc}
-\usepackage[outputdir=\directlua{tex.sprint(os.getenv('BUILD_DIR'))}]{minted}
 \usepackage{tcolorbox}
 \usepackage{pdfrender} %shadowed text
 \usepackage{booktabs}
+
+% Syntax highlighting with minted
+\usepackage[outputdir=\directlua{tex.sprint(os.getenv('BUILD_DIR'))}]{minted}
+\usemintedstyle{perldoc}
+% Load theme
+\input{./theme/perldoc.tex}
+% Set up go code highlighting environment options
+\newminted{go}{autogobble}
 
 % Fix Minted spacing
 \newlength{\fancyvrbtopsep}
@@ -44,14 +47,12 @@
 \setlength{\fancyvrbtopsep}{-3pt}
 \setlength{\fancyvrbpartopsep}{0pt}
 
+
+
 % Frame/box definitions
 %\pagecolor{grPageColor}
 %TODO: Look at sidebyside, overlay, tcbline, segmentation style
 \newtcolorbox{codebox}[1][]{fontupper=\scriptsize\texttt, coltext=grText, colback=grBack, fonttitle=\scriptsize\texttt, coltitle=grHeadingText, colbacktitle=grHeadingBack, arc=3pt, boxrule=0pt, titlerule=0.5pt, box align=top, before skip=0pt, after skip=3pt, left skip=0pt, right skip=3pt, toptitle=3pt, bottomtitle=3pt, subtitle style={after skip=6pt}, boxsep=0pt, left=3pt, top=3pt, halign=left, title=#1}
-
-% Code formatting alias/options
-\usemintedstyle{perldoc}
-\newminted{go}{autogobble}
 
 % Custom commands
 \newcommand*{\CheapShadow}[1]{%
